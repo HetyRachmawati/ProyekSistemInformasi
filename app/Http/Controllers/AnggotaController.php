@@ -41,12 +41,21 @@ class AnggotaController extends Controller
 
     public function create()
     {
-        $this->authorizeAccess('SuperAdmin');
-        
-        $dataOki = DataOki::all();
-        $dataDivisi = DataDivisi::all();
+        $user = Auth::user();
+
+        if ($user->role === 'SuperAdmin') {
+            $dataOki = DataOki::all();
+            $dataDivisi = DataDivisi::all();
+            return view('super-admin.anggota.create', compact('dataOki', 'dataDivisi'));
+        }
     
-        return view('super-admin.anggota.create', compact('dataOki', 'dataDivisi'));
+        if ($user->role === 'AdminOki') {
+            $dataOki = DataOki::all();
+            $dataDivisi = DataDivisi::all();
+            return view('admin-oki.anggota.create', compact('dataOki', 'dataDivisi'));
+        }
+    
+        abort(403, 'Anda tidak memiliki akses ke halaman ini.');
     }
 
     public function store(Request $request)
@@ -84,16 +93,33 @@ class AnggotaController extends Controller
             'role' => $role,
         ]);
 
-        return redirect()->route('super-admin.anggota.index')->with('success', 'Anggota berhasil ditambahkan!');
+        if ($user->role === 'SuperAdmin') {
+            return redirect()->route('super-admin.anggota.index')->with('success', 'Anggota berhasil ditambahkan!');
+        }
+
+        if ($user->role === 'AdminOki') {
+            return redirect()->route('admin-oki.anggota.index')->with('success', 'Anggota berhasil ditambahkan!');
+        }
+
+        abort(403, 'Anda tidak memiliki akses ke halaman ini.');
     }
 
     public function edit($id)
     {
+        $user = Auth::user();
         $anggota = User::with(['dataOki', 'dataDivisi'])->findOrFail($id);
         $dataOki = DataOki::all();
         $dataDivisi = DataDivisi::all();
-    
-        return view('super-admin.anggota.edit', compact('anggota', 'dataOki', 'dataDivisi'));
+
+        if ($user->role === 'SuperAdmin') {
+            return view('super-admin.anggota.edit', compact('anggota', 'dataOki', 'dataDivisi'));
+        }
+
+        if ($user->role === 'AdminOki') {
+            return view('admin-oki.anggota.edit', compact('anggota', 'dataOki', 'dataDivisi'));
+        }
+
+        abort(403, 'Anda tidak memiliki akses ke halaman ini.');
     }
 
     public function update(Request $request, $id)
@@ -110,25 +136,52 @@ class AnggotaController extends Controller
             'id_oki' => 'nullable|exists:oki_baru,id',
             'id_divisi' => 'nullable|exists:divisi_baru,id',
         ]);
-    
+
         $anggota = User::findOrFail($id);
-    
         $anggota->update($request->except('password'));
-    
+
         if ($request->filled('password')) {
             $anggota->update([
                 'password' => Hash::make($request->password),
             ]);
         }
-    
-        return redirect()->route('super-admin.anggota.index')->with('success', 'Data anggota berhasil diperbarui.');
+
+        if (Auth::user()->role === 'SuperAdmin') {
+            return redirect()->route('super-admin.anggota.index')->with('success', 'Data anggota berhasil diperbarui.');
+        }
+
+        if (Auth::user()->role === 'AdminOki') {
+            return redirect()->route('admin-oki.anggota.index')->with('success', 'Data anggota berhasil diperbarui.');
+        }
+
+        abort(403, 'Anda tidak memiliki akses ke halaman ini.');
     }
 
     public function destroy($id)
     {
+        $user = Auth::user();
         $anggota = User::findOrFail($id);
         $anggota->delete();
 
-        return redirect()->route('super-admin.anggota.index')->with('success', 'Anggota berhasil dihapus!');
+        if ($user->role === 'SuperAdmin') {
+            return redirect()->route('super-admin.anggota.index')->with('success', 'Anggota berhasil dihapus!');
+        }
+
+        if ($user->role === 'AdminOki') {
+            return redirect()->route('admin-oki.anggota.index')->with('success', 'Anggota berhasil dihapus!');
+        }
+
+        abort(403, 'Anda tidak memiliki akses ke halaman ini.');
     }
+
+
+    public function showMemberList()
+{
+    $anggotas = User::with(['dataOki', 'dataDivisi'])->paginate(10);
+
+    return view('memberlist', compact('anggotas'));
 }
+
+}
+
+

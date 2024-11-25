@@ -9,11 +9,12 @@
         <ul class="sidebar-menu">
             <li class="menu-header" style="color: white; font-weight: normal;">Dashboard</li>
             <li class="dropdown">
-                <a href="" class="nav-link has-dropdown" style="color: white; font-weight: normal;">
+                <a href="{{ route('super-admin.dashboard') }}" class="nav-link has-dropdown" style="color: white; font-weight: normal;">
                     <i class="fas fa-fire"></i><span>Dashboard</span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="" style="color: white; font-weight: normal;">Home</a></li>
+                    <li><a class="nav-link" href="{{ route('super-admin.dashboard') }}" style="color: white; font-weight: normal;">Dashboard</a></li>
+                    <li><a class="nav-link" href="{{ route('super-admin.home.index') }}" style="color: white; font-weight: normal;">Home</a></li>
                 </ul>
             </li>
             <li class="menu-header" style="color: white; font-weight: normal;">Data Anggota</li>
@@ -22,7 +23,7 @@
                     <i class="far fa-user"></i> <span>Keanggotaan</span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="forms-advanced-form.html" style="color: white; font-weight: normal;">Member List</a></li>
+                    <li><a class="nav-link" href="{{ route('memberlist') }}" style="color: white; font-weight: normal;">Member List</a></li>
                     <li><a class="nav-link" href="{{ route('super-admin.anggota.index') }}" style="color: white; font-weight: normal;">Data Keanggotaan</a></li>
                 </ul>
             </li>

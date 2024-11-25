@@ -7,11 +7,11 @@
             <!-- Dashboard -->
             <li class="menu-header text-white">Dashboard</li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown text-white">
+                <a href="" class="nav-link has-dropdown text-white">
                     <i class="fas fa-fire"></i> <span>Dashboard</span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link text-white" href="#">Home</a></li>
+                    <li><a class="nav-link text-white" href="{{ route('admin-oki.dashboard') }}">Home</a></li>
                 </ul>
             </li>
 
@@ -22,7 +22,7 @@
                     <i class="far fa-user"></i> <span>Keanggotaan</span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link text-white" href="#">Member List</a></li>
+                    <li><a class="nav-link text-white" href="{{ route('memberlist') }}">Member List</a></li>
                     <li><a class="nav-link text-white" href="{{ route('admin-oki.anggota.index') }}">Data Keanggotaan</a></li>
                 </ul>
             </li>

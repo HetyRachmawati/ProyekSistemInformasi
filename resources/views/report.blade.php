@@ -1,19 +1,20 @@
 @extends('layouts.app')
-@section('title', 'Manajemen Laporan - Super Admin')
+@section('title', 'Manajemen Laporan - Anggota')
 @section('content')
 
 <section class="section">
     <div class="section-header">
         <h1>Manajemen Laporan</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-            <div class="breadcrumb-item"><a href="#">Modules</a></div>
+            <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
             <div class="breadcrumb-item">Manajemen Laporan</div>
         </div>
     </div>
+
     <div class="section-body">
         <h2 class="section-title">Daftar Laporan</h2>
         <p class="section-lead">Berikut adalah data laporan yang terdaftar di BEM Polinema PSDKU Kediri.</p>
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -48,7 +49,7 @@
                                         </td>
                                         <td>{{ \Carbon\Carbon::parse($report->tgl_pelaksanaan)->format('d-m-Y') }}</td>
                                         <td>
-                                            <a href="{{ route('super-admin.report.show', $report->id) }}" class="btn btn-info btn-sm">
+                                            <a href="{{ route('report-show', $report->id) }}" class="btn btn-info btn-sm">
                                                 <i class="fas fa-eye"></i> Lihat
                                             </a>
                                         </td>
@@ -57,6 +58,7 @@
                                 </tbody>
                             </table>
                         </div>
+
                         <div class="d-flex justify-content-between mt-3">
                             <div>
                                 @if($reports->count())

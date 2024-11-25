@@ -7,8 +7,8 @@
     <div class="section-header">
         <h1>Edit Anggota</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item"><a href="{{ route('admin-oki.dashboard') }}">Dashboard</a></div>
-            <div class="breadcrumb-item"><a href="{{ route('admin-oki.anggota.index') }}">Data Anggota</a></div>
+            <div class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboard</a></div>
+            <div class="breadcrumb-item"><a href="{{ route('super-admin.anggota.index') }}">Data Anggota</a></div>
             <div class="breadcrumb-item active">Edit Anggota</div>
         </div>
     </div>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-body">
                         <!-- Action form akan mengarah ke route 'admin-oki.anggota.update' dan menggunakan method PUT -->
-                        <form action="{{ route('admin-oki.anggota.update', $anggota->id) }}" method="POST">
+                        <form action="{{ route('super-admin.anggota.update', $anggota->id) }}" method="POST">
                             @csrf
                             @method('PUT')  <!-- Digunakan untuk menandakan request adalah PUT -->
                             
@@ -159,7 +159,7 @@
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                                <a href="{{ route('admin-oki.anggota.index') }}" class="btn btn-secondary">Batal</a>
+                                <a href="{{ route('super-admin.anggota.index') }}" class="btn btn-secondary">Batal</a>
                             </div>
                         </form>
                     </div>

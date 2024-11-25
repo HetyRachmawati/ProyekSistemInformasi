@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\DataOkiController;
 use App\Http\Controllers\DataDivisiController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UserReportController;
 use App\Http\Controllers\ManajemenKegiatanController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -13,10 +15,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Rute Anggota
+// ANGGOTA
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', CheckRole::class . ':User'])->group(function () {
+    Route::prefix('reports')->group(function () {
+        Route::get('/', [UserReportController::class, 'index'])->name('report');
+        Route::get('/{id}', [UserReportController::class, 'show'])->name('report-show');
+    });
+});
+
+// MemberList
+Route::middleware(['auth'])->group(function () {
+    Route::get('/memberlist', [AnggotaController::class, 'showMemberList'])->name('memberlist');
+});
+
 
 
 // SUPER ADMIN
@@ -71,6 +86,17 @@ Route::middleware(['auth', CheckRole::class . ':SuperAdmin'])->group(function ()
         Route::get('edit/{user}', [AnggotaController::class, 'edit'])->name('super-admin.anggota.edit');
         Route::put('update/{user}', [AnggotaController::class, 'update'])->name('super-admin.anggota.update');
         Route::delete('destroy/{user}', [AnggotaController::class, 'destroy'])->name('super-admin.anggota.destroy');
+    });
+
+       
+    // Home
+    Route::prefix('super-admin/home')->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('super-admin.home.index');
+        Route::get('/create', [HomeController::class, 'create'])->name('super-admin.home.create');
+        Route::post('/', [HomeController::class, 'store'])->name('super-admin.home.store');
+        Route::get('/{home}/edit', [HomeController::class, 'edit'])->name('super-admin.home.edit');
+        Route::put('/{home}', [HomeController::class, 'update'])->name('super-admin.home.update');
+        Route::delete('/{home}', [HomeController::class, 'destroy'])->name('super-admin.home.destroy');
     });
     
     
@@ -133,6 +159,7 @@ Route::middleware(['auth', CheckRole::class . ':AdminOki'])->group(function () {
     });
     
 });
+
 
 
 // Route::middleware(['auth', CheckRole::class . ':AdminOki'])->group(function () {

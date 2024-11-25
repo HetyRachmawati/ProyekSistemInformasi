@@ -24,7 +24,7 @@ class ReportController extends Controller
         if ($user->role === 'SuperAdmin') {
             $reports = Report::with(['manajemen', 'dataOki'])->paginate(10); 
             return view('super-admin.report.index', compact('reports'));
-        }
+        }        
     
         if ($user->role === 'AdminOki') {
             $reports = Report::with(['manajemen', 'dataOki'])->paginate(10); 
@@ -37,19 +37,19 @@ class ReportController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        
+    
         $report = Report::findOrFail($id);
     
         if ($user->role === 'SuperAdmin') {
             return view('super-admin.report.show', compact('report'));
         }
-            if ($user->role === 'AdminOki' ) {
+    
+        if ($user->role === 'AdminOki') {
             return view('admin-oki.report.show', compact('report'));
         }
     
-        abort(403, 'Anda tidak memiliki akses ke halaman ini.');
     }
-    
+
     
     public function create()
     {
@@ -130,10 +130,9 @@ class ReportController extends Controller
             'tgl_pelaksanaan' => 'nullable|date',
             'file_lpj' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
             'status' => 'nullable|in:belum selesai,selesai',
-            'id_oki' => 'required|exists:users,id',  // Pastikan id_oki yang dipilih valid
+            'id_oki' => 'required|exists:users,id',  
         ]);
     
-        // Update laporan dengan data yang diterima dari form
         $report->update($request->except('id_oki'));
     
         if ($request->hasFile('file_lpj')) {
@@ -159,4 +158,5 @@ class ReportController extends Controller
         $report->delete();
         return redirect()->route('admin-oki.report.index');
     }
+    
 }

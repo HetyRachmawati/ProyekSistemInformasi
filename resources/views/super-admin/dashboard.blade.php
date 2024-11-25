@@ -1,4 +1,4 @@
-@extends('layouts.app') {{-- Layout Utama --}}
+@extends('layouts.app') 
 
 @section('title', 'Dashboard Super Admin')
 
@@ -8,8 +8,11 @@
 </div>
 
 <div class="row">
-    {{-- Masukkan Sidebar di Sini --}}
-    @include('layouts.sidebarbem') {{-- Memuat Sidebar dari layouts.sidebarbem --}}
+    @include('layouts.dashboard') 
+</div>
+
+<div class="row">
+    @include('layouts.sidebarbem') 
 </div>
 
 @endsection

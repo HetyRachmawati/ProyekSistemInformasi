@@ -31,7 +31,7 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>No</th>
                                     <th>Nama Lengkap</th>
                                     <th>NIM</th>
                                     <th>Email</th>
@@ -40,13 +40,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($anggotas as $anggota) <!-- Menggunakan $anggotas yang dipaginate -->
+                                @foreach($anggotas as $anggota) <!-- Menggunakan $anggota yang dipaginate -->
                                     <tr>
-                                        <td>{{ $anggota->id }}</td>
+                                        <td>{{ $loop->iteration }}</td> <!-- Nomor urut -->
                                         <td>{{ $anggota->nama_lengkap }}</td>
                                         <td>{{ $anggota->nim }}</td>
                                         <td>{{ $anggota->email }}</td>
-                                        <td>{{ $anggota->status_keaktifan }}</td>
+                                        <td>
+                                            @if ($anggota->status_keaktifan === 'aktif')
+                                                <span class="badge badge-success">Aktif</span>
+                                            @else
+                                                <span class="badge badge-danger">Nonaktif</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href="{{ route('admin-oki.anggota.edit', $anggota->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                             <form action="{{ route('admin-oki.anggota.destroy', $anggota->id) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(event);">

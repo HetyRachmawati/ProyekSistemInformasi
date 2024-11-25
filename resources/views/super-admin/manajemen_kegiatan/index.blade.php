@@ -74,7 +74,9 @@
                                             <!-- Tombol Setujui dengan form POST -->
                                             <form action="{{ route('super-admin.manajemen_kegiatan.setujui', $item->id) }}" method="POST" style="display:inline;">
                                                 @csrf
-                                                <button type="submit" class="btn btn-success btn-sm" title="Setujui Proposal" onclick="return confirm('Yakin ingin menyetujui proposal ini?');">
+                                                <button type="submit" class="btn btn-success btn-sm" title="Setujui Proposal" 
+                                                        onclick="return confirm('Yakin ingin menyetujui proposal ini?');" 
+                                                        {{ $item->status_proposal !== 'diproses' ? 'disabled' : '' }}>
                                                     <i class="fas fa-check"></i> Setujui
                                                 </button>
                                             </form>
@@ -82,11 +84,14 @@
                                             <!-- Tombol Tolak dengan form POST -->
                                             <form action="{{ route('super-admin.manajemen_kegiatan.tolak', $item->id) }}" method="POST" style="display:inline;">
                                                 @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Tolak Proposal" onclick="return confirm('Yakin ingin menolak proposal ini?');">
+                                                <button type="submit" class="btn btn-danger btn-sm" title="Tolak Proposal" 
+                                                        onclick="return confirm('Yakin ingin menolak proposal ini?');" 
+                                                        {{ $item->status_proposal !== 'diproses' ? 'disabled' : '' }}>
                                                     <i class="fas fa-times"></i> Tolak
                                                 </button>
                                             </form>
-                                        </td>                                                                    
+                                        </td>
+                                                                                                          
                                     </tr>
                                     @endforeach
                                 </tbody>

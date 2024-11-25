@@ -40,31 +40,25 @@
 <!-- End GA-->
 
 <style>
-    /* Override Sidebar Menu */
     .main-sidebar .sidebar-menu li a:hover {
         background-color: #b91c1c !important;
         color: white !important;
     }
-
-    /* Override Dropdown Menu */
     .main-sidebar .sidebar-menu li ul.dropdown-menu {
         background-color: #7A201F !important;
     }
-
     .main-sidebar .sidebar-menu li ul.dropdown-menu li a:hover {
         background-color: #b91c1c !important;
         color: white !important;
     }
     .sidebar-menu li a {
-        color: white !important; /* Memastikan semua teks link sidebar berwarna putih */
+        color: white !important; 
     }
-
     .sidebar-menu li a:hover {
-        color: #f5f5f5 !important; /* Warna lebih terang saat hover */
+        color: #f5f5f5 !important; 
     }
-
     .sidebar-brand a {
-        color: white !important; /* Warna teks branding tetap putih */
+        color: white !important; 
     }
 </style>
 
@@ -227,12 +221,6 @@
               <a href="{{ route('profile.edit') }}" class="dropdown-item has-icon" style="color: #7f1d1d;">
                 <i class="far fa-user"></i> Profile
               </a>
-              <a href="features-activities.html" class="dropdown-item has-icon" style="color: #7f1d1d;">
-                <i class="fas fa-bolt"></i> Activities
-              </a>
-              <a href="features-settings.html" class="dropdown-item has-icon" style="color: #7f1d1d;">
-                <i class="fas fa-cog"></i> Settings
-              </a>
               <div class="dropdown-divider"></div>
               <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -252,15 +240,16 @@
            @include('layouts.sidebarbem') {{-- Sidebar untuk SuperAdmin --}}
        @elseif (Auth::user()->role == 'AdminOki')
            @include('layouts.sidebaroki') {{-- Sidebar untuk AdminOki --}}
+       @elseif (Auth::user()->role == 'User')
+           @include('layouts.sidebaruser') {{-- Sidebar untuk User --}}
        @endif
-
+       
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
             @yield('content')
         </section>
     </div>
-
 
 
       {{-- footer --}}
