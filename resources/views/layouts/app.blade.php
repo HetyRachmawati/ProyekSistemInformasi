@@ -215,12 +215,12 @@
           <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
               <img alt="image" src="{{ asset('storage/assets/img/avatar/avatar-5.png') }}" class="rounded-circle mr-1">
-              <div class="d-sm-none d-lg-inline-block" style="color: #7f1d1d;">Hi, {{ Auth::user()->email }}</div>
+              <div class="d-sm-none d-lg-inline-block" style="color: #7f1d1d;">Hi, {{ Auth::user()->nama_lengkap }}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="{{ route('profile.edit') }}" class="dropdown-item has-icon" style="color: #7f1d1d;">
+              <a href="{{ route('profile.edit', Auth::user()->id) }}" class="dropdown-item has-icon" style="color: #7f1d1d;">
                 <i class="far fa-user"></i> Profile
-              </a>
+            </a>
               <div class="dropdown-divider"></div>
               <form method="POST" action="{{ route('logout') }}">
                 @csrf
