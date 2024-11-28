@@ -7,27 +7,19 @@
 
   <title>@yield('title')</title>
 
-  <!-- General CSS Files -->
-  <link rel="stylesheet" href="{{ asset('storage/assets/modules/bootstrap/css/bootstrap.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('storage/assets/modules/fontawesome/css/all.min.css')}}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+ <!-- General CSS Files -->
+<link rel="stylesheet" href="{{ asset('storage/assets/modules/bootstrap/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('storage/assets/modules/fontawesome/css/all.min.css') }}">
 
+<!-- CSS Libraries -->
+<link rel="stylesheet" href="{{ asset('storage/assets/modules/datatables/datatables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('storage/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('storage/assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
 
-  <!-- CSS Libraries -->
-  <link rel="stylesheet" href="{{ asset('storage/assets/modules/jqvmap/dist/jqvmap.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('storage/assets/modules/weather-icon/css/weather-icons.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('storage/assets/modules/weather-icon/css/weather-icons-wind.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('storage/assets/modules/summernote/summernote-bs4.css')}}">
-  <link rel="stylesheet" href="{{ asset('storage/assets/modules/datatables/datatables.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('storage/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('storage/assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css')}}">
+<!-- Template CSS -->
+<link rel="stylesheet" href="{{ asset('storage/assets/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('storage/assets/css/components.css') }}">
 
-
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="{{ asset('storage/assets/css/style.css')}}">
-  <link rel="stylesheet" href="{{ asset('storage/assets/css/components.css')}}">
-
-  
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
 <script>
@@ -37,7 +29,7 @@
 
   gtag('config', 'UA-94034622-3');
 </script>
-<!-- End GA-->
+<!-- /END GA -->
 
 <style>
     .main-sidebar .sidebar-menu li a:hover {
@@ -261,42 +253,176 @@
 </footer>
 
 
-  <!-- General JS Scripts -->
-  <script src="{{ asset('storage/assets/modules/jquery.min.js')}}"></script>
-  <script src="{{ asset('storage/assets/modules/popper.js')}}"></script>
-  <script src="{{ asset('storage/assets/modules/tooltip.js')}}"></script>
-  <script src="{{ asset('storage/assets/modules/bootstrap/js/bootstrap.min.js')}}"></script>
-  <script src="{{ asset('storage/assets/modules/nicescroll/jquery.nicescroll.min.js')}}"></script>
-  <script src="{{ asset('storage/assets/modules/moment.min.js')}}"></script>
-  <script src="{{ asset('storage/assets/js/stisla.js')}}"></script>
-  
-  <!-- JS Libraies -->
-  <script src="{{ asset('storage/assets/modules/simple-weather/jquery.simpleWeather.min.js')}}"></script>
-  <script src="{{ asset('storage/assets/modules/chart.min.js')}}"></script>
-  <script src="{{ asset('storage/assets/modules/jqvmap/dist/jquery.vmap.min.js')}}"></script>
-  <script src="{{ asset('storage/assets/modules/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
-  <script src="{{ asset('storage/assets/modules/summernote/summernote-bs4.js')}}"></script>
-  <script src="{{ asset('storage/assets/modules/chocolat/dist/js/jquery.chocolat.min.js')}}"></script>
+ <!-- General JS Scripts -->
+<script src="{{ asset('storage/assets/modules/jquery.min.js') }}"></script>
+<script src="{{ asset('storage/assets/modules/popper.js') }}"></script>
+<script src="{{ asset('storage/assets/modules/tooltip.js') }}"></script>
+<script src="{{ asset('storage/assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('storage/assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
+<script src="{{ asset('storage/assets/modules/moment.min.js') }}"></script>
+<script src="{{ asset('storage/assets/js/stisla.js') }}"></script>
 
-  <script src="{{ asset('storage/assets/modules/jquery-ui/jquery-ui.min.js')}}"></script>
+<!-- JS Libraries -->
+<script src="{{ asset('storage/assets/modules/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('storage/assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('storage/assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
+<script src="{{ asset('storage/assets/modules/jquery-ui/jquery-ui.min.js') }}"></script>
 
-  <!-- Page Specific JS File -->
-  <script src="{{ asset('storage/assets/js/page/index-0.js')}}"></script>
+<!-- Page Specific JS File -->
+<script src="{{ asset('storage/assets/js/page/modules-datatables.js') }}"></script>
 
-  <!-- Template JS File -->
-  <script src="{{ asset('storage/assets/js/scripts.js')}}"></script>
-  <script src="{{ asset('storage/assets/js/custom.js')}}"></script>
+<!-- Template JS File -->
+<script src="{{ asset('storage/assets/js/scripts.js') }}"></script>
+<script src="{{ asset('storage/assets/js/custom.js') }}"></script>
 
 
-    <!-- JS Libraies -->
-    <script src="{{ asset('storageassets/modules/datatables/datatables.min.js')}}"></script>
-    <script src="{{ asset('storageassets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{ asset('storageassets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script>
-    <script src="{{ asset('storageassets/modules/jquery-ui/jquery-ui.min.js')}}"></script>
-  
-    <!-- Page Specific JS File -->
-    <script src="{{ asset('storageassets/js/page/modules-datatables.js')}}"></script>
 
 
+ <!-- SweetAlert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  // SweetAlert Hapus
+  function confirmDelete(event) {
+      event.preventDefault();
+      Swal.fire({
+          title: "Apakah Anda yakin?",
+          text: "Data yang dihapus tidak dapat dipulihkan!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Ya, hapus!",
+          cancelButtonText: "Batal"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              Swal.fire({
+                  title: "Dihapus!",
+                  text: "Data Anda telah dihapus.",
+                  icon: "success"
+              }).then(() => {
+                  event.target.submit();
+              });
+          }
+      });
+  }
+
+  // SweetAlert Edit
+  function confirmEdit(event) {
+      event.preventDefault();
+      Swal.fire({
+          title: "Apakah Anda yakin ingin menyimpan perubahan?",
+          text: "Perubahan yang disimpan akan diterapkan!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Ya, simpan!",
+          cancelButtonText: "Batal"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              Swal.fire({
+                  title: "Disimpan!",
+                  text: "Perubahan Anda telah disimpan.",
+                  icon: "success"
+              }).then(() => {
+                  event.target.submit();
+              });
+          }
+      });
+  }
+
+  // SweetAlert Simpan
+  function confirmSave(event) {
+      event.preventDefault();
+      Swal.fire({
+          title: "Apakah Anda yakin ingin menyimpan data?",
+          text: "Data yang disimpan tidak dapat diubah lagi!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Ya, simpan!",
+          cancelButtonText: "Batal"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              Swal.fire({
+                  title: "Tersimpan!",
+                  text: "Data Anda telah disimpan.",
+                  icon: "success"
+              }).then(() => {
+                  event.target.submit();
+              });
+          }
+      });
+  }
+
+
+    // SweetAlert Setujui
+    function confirmSetujui(event, id) {
+    event.preventDefault(); 
+
+    Swal.fire({
+        title: "Apakah Anda yakin?",
+        text: "Pastikan Anda sudah memeriksa proposal sebelum disetujui.",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, setujui!",
+        cancelButtonText: "Batal"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "Disetujui!",
+                text: "Proposal ini telah disetujui.",
+                icon: "success"
+            }).then(() => {
+                setTimeout(function() {
+                    document.getElementById('setujui-form-' + id).submit();
+                }, 1000);  
+            });
+        }
+    });
+}
+
+
+
+    // SweetAlert Tolak
+    function confirmTolak(event, id) {
+    event.preventDefault(); 
+    Swal.fire({
+        title: "Apakah Anda yakin?",
+        text: "Pastikan Anda ingin menolak proposal ini.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Ya, tolak!",
+        cancelButtonText: "Batal"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "Ditolak!",
+                text: "Proposal ini telah ditolak.",
+                icon: "error"
+            }).then(() => {
+                setTimeout(function() {
+                    document.getElementById('tolak-form-' + id).submit();
+                }, 1000); 
+            });
+        }
+    });
+}
+
+</script>
+
+@yield('scripts')
+
+
+
+
+
+
+    
 </body>
 </html>

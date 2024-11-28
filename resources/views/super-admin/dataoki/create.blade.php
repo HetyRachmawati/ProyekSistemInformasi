@@ -26,7 +26,7 @@
             <h4>Kelola Data OKI</h4>
           </div>
           <div class="card-body">
-            <form action="{{ route('super-admin.data_oki.store') }}" method="POST">
+            <form action="{{ route('super-admin.data_oki.store') }}" method="POST" onsubmit="confirmSave(event)">
               @csrf
               <div class="form-group">
                 <label>Nama OKI</label>

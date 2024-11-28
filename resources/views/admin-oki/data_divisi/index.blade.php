@@ -49,7 +49,7 @@
                                                 <a href="{{ route('admin-oki.data_divisi.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                                     <i class="fas fa-edit"></i> Edit
                                                 </a>
-                                                <form action="{{ route('admin-oki.data_divisi.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                                <form action="{{ route('admin-oki.data_divisi.destroy', $item->id) }}" method="POST" class="d-inline"  onsubmit="return confirmDelete(event);">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm">
@@ -68,17 +68,6 @@
                                     @endforelse
                                 </tbody>
                             </table>
-                        </div>
-
-                        <div class="d-flex justify-content-between mt-3">
-                            <div>
-                                @if($dataDivisi->count())
-                                    Menampilkan {{ $dataDivisi->firstItem() }} sampai {{ $dataDivisi->lastItem() }} dari {{ $dataDivisi->total() }} data.
-                                @endif
-                            </div>
-                            <div>
-                                {{ $dataDivisi->links() }}
-                            </div>
                         </div>
                     </div>
                 </div>

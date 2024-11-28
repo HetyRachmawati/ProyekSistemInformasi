@@ -23,9 +23,7 @@ class AnggotaController extends Controller
         $user = Auth::user();
     
         if ($user->role === 'SuperAdmin') {
-            $anggotas = User::with(['dataOki', 'dataDivisi'])
-                            ->where('role', 'user')
-                            ->paginate(10);
+            $anggotas = User::with(['dataOki', 'dataDivisi'])->paginate(10);
             return view('super-admin.anggota.index', compact('anggotas'));
         }
     

@@ -1,5 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Admin Oki Manajemen Kegiatan')
+
+@section('title', 'Data Oki')
+
 @section('content')
 
 <section class="section">
@@ -20,14 +22,14 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Manajemen Kegiatan</h4>
+                        <h4>Data Majemen Kegiatan</h4>
                         <a href="{{ route('admin-oki.manajemen_kegiatan.create') }}" class="btn btn-primary ml-auto" title="Tambah Kegiatan Baru">
                             <i class="fas fa-plus"></i> Tambah Kegiatan
                         </a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-striped" id="table-1">
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
@@ -70,10 +72,10 @@
                                             <a href="{{ route('admin-oki.manajemen_kegiatan.edit', $item->id) }}" class="btn btn-warning btn-sm" title="Edit Feedback">
                                                 <i class="fas fa-edit"></i> Edit
                                             </a>
-                                            <form action="{{ route('admin-oki.manajemen_kegiatan.destroy', $item->id) }}" method="POST" style="display:inline;">
+                                            <form action="{{ route('admin-oki.manajemen_kegiatan.destroy', $item->id) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(event);">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus kegiatan ini?');" title="Hapus">
+                                                <button type="submit" class="btn btn-danger btn-sm">
                                                     <i class="fas fa-trash"></i> Hapus
                                                 </button>
                                             </form>
@@ -83,8 +85,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- Pagination -->
-                        {{ $manajemenKegiatan->links() }}
                     </div>
                 </div>
             </div>

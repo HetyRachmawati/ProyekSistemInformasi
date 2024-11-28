@@ -25,7 +25,7 @@
                         <h4>Form Edit Data</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('super-admin.home.update', $home->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('super-admin.home.update', $home->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
                             @csrf
                             @method('PUT')
                             <div class="form-group">
@@ -56,9 +56,13 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan Perubahan</button>
-                            <a href="{{ route('super-admin.home.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
-                        </form>
+                            <button type="button" id="editButton" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Simpan Perubahan
+                            </button>
+                            <a href="{{ route('super-admin.home.index') }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Kembali
+                            </a>
+                        </form>                        
                     </div>
                 </div>
             </div>

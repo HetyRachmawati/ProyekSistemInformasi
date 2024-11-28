@@ -24,10 +24,9 @@
                         <h4>Form Edit Anggota</h4>
                     </div>
                     <div class="card-body">
-                        <!-- Action form akan mengarah ke route 'admin-oki.anggota.update' dan menggunakan method PUT -->
-                        <form action="{{ route('admin-oki.anggota.update', $anggota->id) }}" method="POST">
+                        <form action="{{ route('admin-oki.anggota.update', $anggota->id) }}" method="POST"  onsubmit="confirmEdit(event)">
                             @csrf
-                            @method('PUT')  <!-- Digunakan untuk menandakan request adalah PUT -->
+                            @method('PUT') 
                             
                             <div class="row">
                                 <div class="col-md-6">

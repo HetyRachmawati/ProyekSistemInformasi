@@ -49,13 +49,13 @@
                                                 <a href="{{ route('super-admin.data_divisi.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                                     <i class="fas fa-edit"></i> Edit
                                                 </a>
-                                                <form action="{{ route('super-admin.data_divisi.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                                <form action="{{ route('super-admin.data_divisi.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirmDelete(event);">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm">
                                                         <i class="fas fa-trash"></i> Hapus
                                                     </button>
-                                                </form>
+                                                </form>                                                
                                             @else
                                                 <span class="text-muted">Akses terbatas</span>
                                             @endif
@@ -69,16 +69,6 @@
                                 </tbody>
                             </table>
                         </div>
-
-                        <div class="d-flex justify-content-between mt-3">
-                            <div>
-                                @if($dataDivisi->count())
-                                    Menampilkan {{ $dataDivisi->firstItem() }} sampai {{ $dataDivisi->lastItem() }} dari {{ $dataDivisi->total() }} data.
-                                @endif
-                            </div>
-                            <div>
-                                {{ $dataDivisi->links() }}
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -67,13 +67,13 @@
                                                 <a href="{{ route('super-admin.home.edit', $home->id) }}" class="btn btn-warning btn-sm">
                                                     <i class="fas fa-edit"></i> Edit
                                                 </a>
-                                                <form action="{{ route('super-admin.home.destroy', $home->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                                <form action="{{ route('super-admin.home.destroy', $home->id) }}" method="POST" id="deleteForm{{ $home->id }}" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                    <button type="button" class="btn btn-danger btn-sm deleteButton" data-id="{{ $home->id }}">
                                                         <i class="fas fa-trash"></i> Hapus
                                                     </button>
-                                                </form>
+                                                </form>                                                
                                             </td>
                                         </tr>
                                     @empty

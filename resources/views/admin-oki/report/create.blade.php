@@ -22,7 +22,7 @@
                         <h4>Form Laporan Baru</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin-oki.report.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin-oki.report.store') }}" method="POST" enctype="multipart/form-data" onsubmit="confirmSave(event)">
                             @csrf
                             <div class="row">
                                 <!-- Kolom Kiri -->

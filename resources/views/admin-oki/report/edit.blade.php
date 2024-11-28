@@ -22,7 +22,7 @@
                         <h4>Form Edit Laporan</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin-oki.report.update', $report->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin-oki.report.update', $report->id) }}" method="POST" enctype="multipart/form-data" onsubmit="confirmEdit(event)">
                             @csrf
                             @method('PUT')
                         

@@ -26,7 +26,7 @@
             <h4>Edit Data OKI</h4>
           </div>
           <div class="card-body">
-            <form action="{{ route('super-admin.data_oki.update', $dataOki->id) }}" method="POST">
+            <form action="{{ route('super-admin.data_oki.update', $dataOki->id) }}" method="POST" onsubmit="confirmEdit(event)">
               @csrf
               @method('PUT')
               <div class="form-group">

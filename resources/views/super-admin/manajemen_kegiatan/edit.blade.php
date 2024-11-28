@@ -25,9 +25,9 @@
                     </div>
                     <div class="card-body">
                         <!-- Form untuk mengedit umpan balik -->
-                        <form action="{{ route('super-admin.manajemen_kegiatan.update-umpan-balik', $manajemenKegiatan->id) }}" method="POST">
+                        <form action="{{ route('super-admin.manajemen_kegiatan.update-umpan-balik', $manajemenKegiatan->id) }}" method="POST" id="saveForm">
                             @csrf
-                            @method('PUT') <!-- Menambahkan metode PUT di sini -->
+                            @method('PUT') 
                             <div class="form-group">
                                 <label for="umpan_balik">Umpan Balik</label>
                                 <textarea name="umpan_balik" id="umpan_balik" rows="5" class="form-control @error('umpan_balik') is-invalid @enderror" placeholder="Masukkan umpan balik">{{ old('umpan_balik', $manajemenKegiatan->umpan_balik) }}</textarea>
@@ -37,10 +37,10 @@
                             </div>
                         
                             <div class="form-group text-right">
-                                <button type="submit" class="btn btn-primary">Simpan Umpan Balik</button>
+                                <button type="button" class="btn btn-primary" id="saveButton">Simpan Umpan Balik</button>
                                 <a href="{{ route('super-admin.manajemen_kegiatan.index') }}" class="btn btn-secondary">Kembali</a>
                             </div>
-                        </form>
+                        </form>                        
                         
                     </div>
                 </div>

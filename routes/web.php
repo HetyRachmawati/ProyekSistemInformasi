@@ -28,6 +28,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+
 Route::middleware(['auth', CheckRole::class . ':User'])->group(function () {
     Route::prefix('reports')->group(function () {
         Route::get('/', [UserReportController::class, 'index'])->name('report');
@@ -39,6 +41,13 @@ Route::middleware(['auth', CheckRole::class . ':User'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/memberlist', [AnggotaController::class, 'showMemberList'])->name('memberlist');
 });
+
+//Report Index
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [ReportController::class, 'showReport'])->name('dashboard.show');
+});
+
 
 
 

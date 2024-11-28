@@ -159,4 +159,13 @@ class ReportController extends Controller
         return redirect()->route('admin-oki.report.index');
     }
     
+
+    public function showReport()
+    {
+        $reports = Report::with(['manajemen', 'dataOki'])->paginate(10); 
+        
+        return view('layouts.dashboard', compact('reports'));
+    }
+    
+    
 }

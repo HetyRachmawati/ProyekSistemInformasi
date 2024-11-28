@@ -57,15 +57,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <div>
-                                @if($reports->count())
-                                    Menampilkan {{ $reports->firstItem() }} sampai {{ $reports->lastItem() }} dari {{ $reports->total() }} data.
-                                @endif
-                            </div>
-                            <div>
-                                {{ $reports->links() }}
-                            </div>
                         </div>
                     </div>
                 </div>

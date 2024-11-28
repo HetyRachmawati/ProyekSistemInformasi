@@ -25,7 +25,7 @@
                         <h4>Form Tambah Data</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('super-admin.home.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('super-admin.home.store') }}" method="POST" enctype="multipart/form-data" id="saveForm">
                             @csrf
                             <div class="form-group">
                                 <label for="judul">Judul</label>
@@ -48,7 +48,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save" id="saveButton"></i> Simpan</button>
                             <a href="{{ route('super-admin.home.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
                         </form>
                     </div>

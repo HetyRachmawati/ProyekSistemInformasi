@@ -3,7 +3,7 @@
 @section('title', 'Dashboard Admin Oki')
 
 @section('content')
-<div class="section-header mb-4">
+<div class="section mb-4">
     <h1 class="h3 mb-2 text-gray-800">Ini Dashboard Admin Oki</h1>
 </div>
 

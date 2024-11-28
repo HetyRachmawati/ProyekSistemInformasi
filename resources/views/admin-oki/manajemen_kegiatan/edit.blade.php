@@ -11,7 +11,7 @@
         <h2 class="section-title">Edit Manajemen Kegiatan</h2>
         <p class="section-lead">Formulir untuk mengedit kegiatan yang terdaftar di BEM Polinema PSDKU Kediri.</p>
 
-        <form action="{{ route('admin-oki.manajemen_kegiatan.update', $manajemenKegiatan->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin-oki.manajemen_kegiatan.update', $manajemenKegiatan->id) }}" method="POST" enctype="multipart/form-data" onsubmit="confirmEdit(event)">
             @csrf
             @method('PUT')
 

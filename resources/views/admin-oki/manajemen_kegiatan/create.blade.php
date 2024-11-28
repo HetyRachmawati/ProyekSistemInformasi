@@ -23,7 +23,7 @@
                         <h4>Kelola Manajemen Kegiatan</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin-oki.manajemen_kegiatan.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin-oki.manajemen_kegiatan.store') }}" method="POST" enctype="multipart/form-data" onsubmit="confirmSave(event)">
                             @csrf
                             <div class="form-group">
                                 <label for="nama_kegiatan">Nama Kegiatan</label>
