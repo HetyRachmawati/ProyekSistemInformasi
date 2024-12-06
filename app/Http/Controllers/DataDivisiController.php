@@ -31,7 +31,9 @@ class DataDivisiController extends Controller
         return view('super-admin.data_divisi.index', compact('dataDivisi'));
     }
         if ($user->role === 'AdminOki') {
-        $dataDivisi = DataDivisi::with('dataOki')->paginate(10);
+        $dataDivisi = DataDivisi::with('dataOki')
+        ->where('id_oki', $user->id_oki) // id_oki dari tabel users
+        ->paginate(10);
         return view('admin-oki.data_divisi.index', compact('dataDivisi'));
     }
 
