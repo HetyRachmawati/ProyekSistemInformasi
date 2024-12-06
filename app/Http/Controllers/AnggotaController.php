@@ -32,8 +32,8 @@ class AnggotaController extends Controller
         }
     
         if ($user->role === 'AdminOki') {
-            $anggotas = User::with($relations)
-                            ->where('role', 'user')
+            $anggotas = User::with($relations, 'dataOki')
+                            ->where('role', 'user', 'id_oki', $user->id_oki)
                             ->paginate(10);
             return view('admin-oki.anggota.index', compact('anggotas'));
         }
