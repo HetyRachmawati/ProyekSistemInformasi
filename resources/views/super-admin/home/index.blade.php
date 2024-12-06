@@ -34,7 +34,9 @@
                                         <th>No</th>
                                         <th>Judul</th>
                                         <th>Deskripsi</th>
-                                        <th>File</th>
+                                        <th>Kategori</th>
+                                        <th>Gambar</th>
+                                        <th>Link</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -44,36 +46,34 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $home->judul }}</td>
                                             <td>{{ $home->deskripsi }}</td>
+                                            <td>{{$home->kategori->nama_kategori}}</td>
                                             <td>
-                                                @if($home->file)
-                                                    <a href="{{ asset('uploads/' . $home->file) }}" target="_blank">
-                                                        @if(in_array(pathinfo($home->file, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
-                                                            <img src="{{ asset('uploads/' . $home->file) }}" alt="Image" style="width: 100px; height: auto;">
-                                                        @elseif(pathinfo($home->file, PATHINFO_EXTENSION) == 'pdf')
-                                                            <i class="fas fa-file-pdf fa-2x"></i>
-                                                        @else
-                                                            <i class="fas fa-file fa-2x"></i>
-                                                        @endif
-                                                    </a>
-                                                    <br>
-                                                    <a href="{{ asset('uploads/' . $home->file) }}" download class="btn btn-success btn-sm mt-2">
-                                                        <i class="fas fa-download"></i> Download
+                                                @if($home->gambar)
+                                                    <a href="{{ asset('uploads/' . $home->gambar) }}" target="_blank">
+                                                        <img src="{{ asset('uploads/' . $home->gambar) }}" alt="Image" style="width: 100px; height: auto;">
                                                     </a>
                                                 @else
-                                                    Tidak ada file
+                                                    Tidak ada gambar
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($home->link_template)
+                                                    <a href="{{ $home->link_template }}" target="_blank">Lihat Link</a>
+                                                @else
+                                                    Tidak ada link
                                                 @endif
                                             </td>
                                             <td>
                                                 <a href="{{ route('super-admin.home.edit', $home->id) }}" class="btn btn-warning btn-sm">
                                                     <i class="fas fa-edit"></i> Edit
                                                 </a>
-                                                <form action="{{ route('super-admin.home.destroy', $home->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                                <form action="{{ route('super-admin.home.destroy', $home->id) }}" method="POST" class="d-inline" onsubmit="return confirmDelete(event);">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm">
                                                         <i class="fas fa-trash"></i> Hapus
                                                     </button>
-                                                </form>
+                                                </form>                                             
                                             </td>
                                         </tr>
                                     @empty

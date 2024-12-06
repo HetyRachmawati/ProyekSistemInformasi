@@ -24,7 +24,7 @@
                         <h4>Form Tambah Anggota</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('super-admin.anggota.store') }}" method="POST">
+                        <form action="{{ route('super-admin.anggota.store') }}" method="POST"  onsubmit="confirmSave(event)">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">

@@ -4,6 +4,8 @@ use App\Http\Controllers\DataOkiController;
 use App\Http\Controllers\DataDivisiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserReportController;
 use App\Http\Controllers\ManajemenKegiatanController;
@@ -24,9 +26,9 @@ Route::middleware('auth')->group(function () {
 
 
 // ANGGOTA
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'dashboardOverview'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware(['auth', CheckRole::class . ':User'])->group(function () {
     Route::prefix('reports')->group(function () {
@@ -46,10 +48,14 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', CheckRole::class . ':SuperAdmin'])->group(function () {
     
     // Dashboard 
-    Route::get('/super-admin/dashboard', function () {
-        return view('super-admin.dashboard');
-    })->name('super-admin.dashboard');
+    // Route::get('/super-admin/dashboard', function () {
+    //     return view('super-admin.dashboard');
+    // })->name('super-admin.dashboard');
     
+    Route::get('/super-admin/dashboard', [DashboardController::class, 'dashboardOverview'])
+    ->middleware(['auth', 'verified'])
+    ->name('super-admin.dashboard');
+
     // Data Oki 
     Route::prefix('super-admin/dataoki')->group(function () {
         Route::get('/', [DataOkiController::class, 'index'])->name('super-admin.data_oki.index'); // List view
@@ -107,6 +113,15 @@ Route::middleware(['auth', CheckRole::class . ':SuperAdmin'])->group(function ()
         Route::delete('/{home}', [HomeController::class, 'destroy'])->name('super-admin.home.destroy');
     });
     
+    //kategori
+    Route::prefix('super-admin/kategori')->group(function () {
+        Route::get('/', [KategoriController::class, 'index'])->name('super-admin.kategori.index');
+        Route::get('/create', [KategoriController::class, 'create'])->name('super-admin.kategori.create');
+        Route::post('/', [KategoriController::class, 'store'])->name('super-admin.kategori.store');
+        Route::get('/{kategori}/edit', [KategoriController::class, 'edit'])->name('super-admin.kategori.edit');
+        Route::put('/{kategori}', [KategoriController::class, 'update'])->name('super-admin.kategori.update');
+        Route::delete('/{kategori}', [KategoriController::class, 'destroy'])->name('super-admin.kategori.destroy');
+    });
     
 });
 
@@ -115,10 +130,14 @@ Route::middleware(['auth', CheckRole::class . ':SuperAdmin'])->group(function ()
 Route::middleware(['auth', CheckRole::class . ':AdminOki'])->group(function () {
     
     // Dashboard 
-    Route::get('/admin-oki/dashboard', function () {
-        return view('admin-oki.dashboard');
-    })->name('admin-oki.dashboard');
+    // Route::get('/admin-oki/dashboard', function () {
+    //     return view('admin-oki.dashboard');
+    // })->name('admin-oki.dashboard');
     
+    Route::get('/admin-oki/dashboard', [DashboardController::class, 'dashboardOverview'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin-oki.dashboard');
+
     // Data Oki
     Route::prefix('admin-oki/dataoki')->group(function () {
         Route::get('/', [DataOkiController::class, 'index'])->name('admin-oki.data_oki.index'); // List view

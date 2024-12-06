@@ -25,7 +25,7 @@
                         <h4>Form Tambah Data</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('super-admin.home.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('super-admin.home.store') }}" method="POST" enctype="multipart/form-data" id="saveForm">
                             @csrf
                             <div class="form-group">
                                 <label for="judul">Judul</label>
@@ -42,13 +42,26 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="file">File</label>
-                                <input type="file" name="file" id="file" class="form-control @error('file') is-invalid @enderror">
-                                @error('file')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <label for="id_kategori">Kategori</label>
+                                <select name="id_kategori" id="id_kategori" class="form-control" required>
+                                    <option value="">Pilih Kategori</option>
+                                    @foreach($categories as $kategori)
+                                        <option value="{{ $kategori->id }}" {{ isset($home) && $home->id_kategori == $kategori->id ? 'selected' : '' }}>
+                                            {{ $kategori->nama_kategori }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                            <div class="form-group">
+                                <label for="gambar">Gambar</label>
+                                <input type="file" name="gambar" id="gambar" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="link_template">Link</label>
+                                <input type="url" name="link_template" id="link_template" class="form-control" value="{{ old('link_template', $home->link_template ?? '') }}">
+                            </div>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save" id="saveButton"></i> Simpan</button>
                             <a href="{{ route('super-admin.home.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
                         </form>
                     </div>

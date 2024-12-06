@@ -1,5 +1,7 @@
 @extends('layouts.app')
+
 @section('title', 'Manajemen Kegiatan - Super Admin')
+
 @section('content')
 
 <section class="section">
@@ -15,95 +17,94 @@
     <div class="section-body">
         <h2 class="section-title">Daftar Manajemen Kegiatan</h2>
         <p class="section-lead">Berikut adalah data Manajemen Kegiatan yang ada di BEM Polinema PSDKU Kediri.</p>
-
-        <div class="row">
-            <div class="col-12">
+    
+            <div class="row">
+              <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4>Manajemen Kegiatan</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">No</th>
-                                        <th class="text-center">Nama Kegiatan</th>
-                                        <th class="text-center">Nama OKI</th>
-                                        <th class="text-center">Status Proposal</th>
-                                        <th class="text-center">Proposal Kegiatan</th>
-                                        <th class="text-center">Umpan Balik</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($manajemenKegiatan as $item)
-                                    <tr class="text-center">
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama_kegiatan }}</td>
-                                        <td>{{ $item->dataOki->nama_oki }}</td>
-                                        <td>
-                                            @if($item->status_proposal == 'diproses')
-                                                <span class="badge badge-warning">Diproses</span>
-                                            @elseif($item->status_proposal == 'disetujui')
-                                                <span class="badge badge-success">Disetujui</span>
-                                            @elseif($item->status_proposal == 'ditolak')
-                                                <span class="badge badge-danger">Ditolak</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if($item->proposal_kegiatan)
-                                                <a href="{{ asset('storage/' . $item->proposal_kegiatan) }}" class="btn btn-info btn-sm" target="_blank">
-                                                    <i class="fas fa-eye"></i> Lihat Proposal
-                                                </a>
-                                            @else
-                                                <span>No Proposal</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if(Auth::user()->role === 'SuperAdmin')
-                                                <!-- Tombol Edit Umpan Balik -->
-                                                <a href="{{ route('super-admin.manajemen_kegiatan.edit', $item->id) }}" class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-edit"></i> Edit Umpan Balik
-                                                </a>
-                                            @else
-                                                <span>{{ $item->umpan_balik ?? 'Tidak ada umpan balik' }}</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <!-- Tombol Setujui dengan form POST -->
-                                            <form action="{{ route('super-admin.manajemen_kegiatan.setujui', $item->id) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                <button type="submit" class="btn btn-success btn-sm" title="Setujui Proposal" 
-                                                        onclick="return confirm('Yakin ingin menyetujui proposal ini?');" 
-                                                        {{ $item->status_proposal !== 'diproses' ? 'disabled' : '' }}>
-                                                    <i class="fas fa-check"></i> Setujui
-                                                </button>
-                                            </form>
-                                        
-                                            <!-- Tombol Tolak dengan form POST -->
-                                            <form action="{{ route('super-admin.manajemen_kegiatan.tolak', $item->id) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Tolak Proposal" 
-                                                        onclick="return confirm('Yakin ingin menolak proposal ini?');" 
-                                                        {{ $item->status_proposal !== 'diproses' ? 'disabled' : '' }}>
-                                                    <i class="fas fa-times"></i> Tolak
-                                                </button>
-                                            </form>
-                                        </td>
-                                                                                                          
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- Pagination -->
-                        {{ $manajemenKegiatan->links() }}
-                    </div>
+                  <div class="card-header">
+                    <h4>Manajemen Kegiatan</h4>
                 </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped" id="table-1">
+                        <thead>                                 
+                          <tr>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Nama Kegiatan</th>
+                            <th class="text-center">Nama OKI</th>
+                            <th class="text-center">Status Proposal</th>
+                            <th class="text-center">Proposal Kegiatan</th>
+                            <th class="text-center">Umpan Balik</th>
+                            <th class="text-center">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($manajemenKegiatan as $item)
+                            <tr class="text-center">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->nama_kegiatan }}</td>
+                                <td>{{ $item->dataOki->nama_oki }}</td>
+                                <td>
+                                    @if($item->status_proposal == 'diproses')
+                                        <span class="badge badge-warning">Diproses</span>
+                                    @elseif($item->status_proposal == 'disetujui')
+                                        <span class="badge badge-success">Disetujui</span>
+                                    @elseif($item->status_proposal == 'ditolak')
+                                        <span class="badge badge-danger">Ditolak</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($item->proposal_kegiatan)
+                                        <a href="{{ asset('storage/' . $item->proposal_kegiatan) }}" class="btn btn-info btn-sm" target="_blank">
+                                            <i class="fas fa-eye"></i> Lihat Proposal
+                                        </a>
+                                    @else
+                                        <span>No Proposal</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if(Auth::user()->role === 'SuperAdmin')
+                                        <!-- Tombol Edit Umpan Balik -->
+                                        <a href="{{ route('super-admin.manajemen_kegiatan.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i> Edit Umpan Balik
+                                        </a>
+                                    @else
+                                        <span>{{ $item->umpan_balik ?? 'Tidak ada umpan balik' }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                   <!-- Tombol Setujui -->
+                                    <form action="{{ route('super-admin.manajemen_kegiatan.setujui', $item->id) }}" method="POST" style="display:inline;" id="setujui-form-{{ $item->id }}">
+                                        @csrf
+                                        <button type="button" class="btn btn-success btn-sm" title="Setujui Proposal" 
+                                                id="setujui-{{ $item->id }}" 
+                                                {{ $item->status_proposal !== 'diproses' ? 'disabled' : '' }}
+                                                onclick="confirmSetujui(event, '{{ $item->id }}')">
+                                            <i class="fas fa-check"></i> Setujui
+                                        </button>
+                                    </form>
+
+                                    <!-- Tombol Tolak -->
+                                    <form action="{{ route('super-admin.manajemen_kegiatan.tolak', $item->id) }}" method="POST" style="display:inline;" id="tolak-form-{{ $item->id }}">
+                                        @csrf
+                                        <button type="button" class="btn btn-danger btn-sm" title="Tolak Proposal" 
+                                                id="tolak-{{ $item->id }}" 
+                                                {{ $item->status_proposal !== 'diproses' ? 'disabled' : '' }}
+                                                onclick="confirmTolak(event, '{{ $item->id }}')">
+                                            <i class="fas fa-times"></i> Tolak
+                                        </button>
+                                    </form>                            
+                                </td>                                                                                         
+                            </tr>
+                            @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 @endsection
