@@ -80,6 +80,7 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
 
        <!-- Jurusan -->
         <div class="col-lg-4 col-md-6 col-sm-12">
@@ -99,3 +100,24 @@
         </div>
     </div>
 </section>
+=======
+        <!-- Pending -->
+        {{-- <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card card-statistic-1">
+                <div class="card-icon bg-warning">
+                    <i class="fas fa-hourglass-half"></i> 
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                        <h5>Data Pending</h5>
+                    </div>
+                    <div class="card-body">
+                        27
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+    </div>
+</section>
+
+>>>>>>> cb28d7b2697c4d65dc0a4676577cdda3eced1a75

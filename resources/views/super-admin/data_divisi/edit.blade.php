@@ -26,7 +26,11 @@
             <h4>Edit Data Divisi</h4>
           </div>
           <div class="card-body">
+<<<<<<< HEAD
             <form action="{{ route('super-admin.data_divisi.update', $dataDivisi->id) }}" method="POST"  onsubmit="confirmEdit(event)">
+=======
+            <form action="{{ route('super-admin.data_divisi.update', $dataDivisi->id) }}" method="POST" onsubmit="confirmEdit(event)">
+>>>>>>> cb28d7b2697c4d65dc0a4676577cdda3eced1a75
               @csrf
               @method('PUT')
               <div class="form-group">

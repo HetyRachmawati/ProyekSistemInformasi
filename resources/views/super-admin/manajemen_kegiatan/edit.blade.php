@@ -25,7 +25,11 @@
                     </div>
                     <div class="card-body">
                         <!-- Form untuk mengedit umpan balik -->
+<<<<<<< HEAD
                         <form action="{{ route('super-admin.manajemen_kegiatan.update-umpan-balik', $manajemenKegiatan->id) }}" method="POST" onsubmit="confirmEdit(event)">
+=======
+                        <form action="{{ route('super-admin.manajemen_kegiatan.update-umpan-balik', $manajemenKegiatan->id) }}" method="POST" id="saveForm">
+>>>>>>> cb28d7b2697c4d65dc0a4676577cdda3eced1a75
                             @csrf
                             @method('PUT') 
                             <div class="form-group">
@@ -36,7 +40,7 @@
                                 @enderror
                             </div>
                             <div class="form-group text-right">
-                                <button type="submit" class="btn btn-primary">Simpan Umpan Balik</button>
+                                <button type="button" class="btn btn-primary" id="saveButton">Simpan Umpan Balik</button>
                                 <a href="{{ route('super-admin.manajemen_kegiatan.index') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>                        
