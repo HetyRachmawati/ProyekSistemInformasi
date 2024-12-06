@@ -55,10 +55,6 @@ Route::get('/course', [HomeController::class, 'course'])->name('course')->middle
 Route::get('/dashboard', [DashboardController::class, 'dashboardOverview'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-<<<<<<< HEAD
-
-=======
->>>>>>> cb28d7b2697c4d65dc0a4676577cdda3eced1a75
 
 Route::middleware(['auth', CheckRole::class . ':User'])->group(function () {
     Route::prefix('reports')->group(function () {
@@ -80,15 +76,14 @@ Route::prefix('user')->middleware(['auth'])->group(function () {
 Route::middleware(['auth', CheckRole::class . ':SuperAdmin'])->group(function () {
     
     // Dashboard 
-<<<<<<< HEAD
     Route::get('/super-admin/dashboard', [DashboardController::class, 'dashboardOverview'])
     ->middleware(['auth', 'verified'])
     ->name('super-admin.dashboard');
-=======
+
     // Route::get('/super-admin/dashboard', function () {
     //     return view('super-admin.dashboard');
     // })->name('super-admin.dashboard');
->>>>>>> cb28d7b2697c4d65dc0a4676577cdda3eced1a75
+
     
     Route::get('/super-admin/dashboard', [DashboardController::class, 'dashboardOverview'])
     ->middleware(['auth', 'verified'])
@@ -150,6 +145,17 @@ Route::middleware(['auth', CheckRole::class . ':SuperAdmin'])->group(function ()
         Route::put('/{home}', [HomeController::class, 'update'])->name('super-admin.home.update');
         Route::delete('/{home}', [HomeController::class, 'destroy'])->name('super-admin.home.destroy');
     });
+
+    // Kategori
+    Route::prefix('super-admin/kategori')->name('super-admin.kategori.')->middleware('auth')->group(function() {
+        Route::get('/', [KategoriController::class, 'index'])->name('index'); // Menampilkan semua kategori
+        Route::get('/create', [KategoriController::class, 'create'])->name('create'); // Menampilkan form create
+        Route::post('/', [KategoriController::class, 'store'])->name('store'); // Menyimpan kategori baru
+        Route::get('/{kategori}/edit', [KategoriController::class, 'edit'])->name('edit'); // Menampilkan form edit
+        Route::put('/{kategori}', [KategoriController::class, 'update'])->name('update'); // Memperbarui kategori
+        Route::delete('/{kategori}', [KategoriController::class, 'destroy'])->name('destroy'); // Menghapus kategori
+    });
+
     
 
     // Tahun
