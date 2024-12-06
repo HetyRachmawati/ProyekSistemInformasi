@@ -11,7 +11,7 @@
                         <h5>Data Oki</h5>
                     </div>
                     <div class="card-body">
-                        10
+                    {{ $data['data_oki'] }}
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                         <h5>Data Divisi</h5>
                     </div>
                     <div class="card-body">
-                        42
+                    {{ $data['data_divisi'] }}
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                         <h5>Reports</h5>
                     </div>
                     <div class="card-body">
-                        1,201
+                    {{ $data['reports'] }}
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                         <h5>Data Manajemen</h5>
                     </div>
                     <div class="card-body">
-                        123
+                    {{ $data['kegiatan'] }}
                     </div>
                 </div>
             </div>
@@ -75,27 +75,27 @@
                         <h5>Member List</h5>
                     </div>
                     <div class="card-body">
-                        98
+                    {{ $data['anggota'] }}
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Pending -->
-        {{-- <div class="col-lg-4 col-md-6 col-sm-12">
+
+       <!-- Jurusan -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="card card-statistic-1">
-                <div class="card-icon bg-warning">
-                    <i class="fas fa-hourglass-half"></i> 
+                <div class="card-icon bg-danger"> 
+                    <i class="fas fa-graduation-cap"></i> 
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                        <h5>Data Pending</h5>
+                        <h5>Jurusan</h5>
                     </div>
                     <div class="card-body">
-                        27
+                        {{ $data['jurusan'] }}
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
     </div>
 </section>
-

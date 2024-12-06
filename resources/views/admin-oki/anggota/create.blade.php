@@ -47,36 +47,6 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Organisasi (OKI)</label>
-                                        <select name="id_oki" class="form-control" required>
-                                            <option value="" disabled selected>Pilih OKI</option>
-                                            @foreach($dataOki as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama_oki }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('id_oki')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Divisi</label>
-                                        <select name="id_divisi" class="form-control" required>
-                                            <option value="" disabled selected>Pilih Divisi</option>
-                                            @foreach($dataDivisi as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama_divisi }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('id_divisi')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="row">
                                 <div class="col-md-6">
@@ -123,18 +93,59 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Periode</label>
-                                        <input type="text" name="periode" class="form-control" value="{{ old('periode') }}">
-                                        @error('periode')
+                                        <label>Organisasi (OKI)</label>
+                                        <select name="id_oki" class="form-control" required>
+                                            <option value="" disabled selected>Pilih OKI</option>
+                                            @foreach($dataOki as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nama_oki }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_oki')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label>Divisi</label>
+                                        <select name="id_divisi" class="form-control" required>
+                                            <option value="" disabled selected>Pilih Divisi</option>
+                                            @foreach($dataDivisi as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nama_divisi }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_divisi')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label>Jurusan</label>
-                                        <input type="text" name="jurusan" class="form-control" value="{{ old('jurusan') }}">
-                                        @error('jurusan')
+                                        <select name="id_jurusan" class="form-control" required>
+                                            <option value="" disabled selected>Pilih Jurusan</option>
+                                            @foreach($jurusans as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nama_jurusan }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_jurusan')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Periode</label>
+                                        <select name="id_periode" class="form-control" required>
+                                            <option value="" disabled selected>Pilih Periode</option>
+                                            @foreach($periodes as $item)
+                                                <option value="{{ $item->id }}">{{ $item->tahun_periode }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_periode')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

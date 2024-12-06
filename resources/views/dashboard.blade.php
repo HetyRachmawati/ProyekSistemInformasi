@@ -6,8 +6,5 @@
     @include('layouts.dashboard') 
 </div>
 
-<div class="row">
-    @include('layouts.sidebaruser') 
-</div>
 
 @endsection

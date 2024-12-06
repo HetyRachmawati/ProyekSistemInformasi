@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Manajemen;
 use App\Models\DataOki;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -121,35 +122,197 @@ class ManajemenKegiatanController extends Controller
         return view('admin-oki.manajemen_kegiatan.show', compact('kegiatan'));
     }
 
+
     public function updateUmpanBalik(Request $request, $id)
     {
-        $this->authorizeAccess('SuperAdmin'); 
-            $request->validate([
+        // Pastikan hanya SuperAdmin yang dapat mengakses fungsi ini
+        $this->authorizeAccess('SuperAdmin');
+    
+        // Validasi input umpan balik
+        $request->validate([
             'umpan_balik' => 'nullable|string|max:255',
         ]);
-            $kegiatan = Manajemen::findOrFail($id);
-            $kegiatan->update([
+    
+        // Mengambil data kegiatan berdasarkan ID
+        $kegiatan = Manajemen::findOrFail($id);
+    
+        // Update kegiatan dengan umpan balik yang diterima dari request
+        $kegiatan->update([
             'umpan_balik' => $request->umpan_balik,
         ]);
-            return redirect()->route('super-admin.manajemen_kegiatan.index');
+    
+        // Mendapatkan data pengguna AdminOki yang terkait dengan DataOki dari kegiatan ini
+        // Hanya ambil pengguna yang memiliki role 'AdminOki'
+        $adminOki = $kegiatan->dataOki->users()->where('role', 'AdminOki')->first();
+    
+        // Pastikan ada pengguna yang terhubung (AdminOki)
+        if ($adminOki) {
+            // Ambil nomor HP dan nama lengkap dari AdminOki
+            $nomorHp = $adminOki->no_hp;  // Pastikan model User memiliki atribut 'no_hp'
+            $namaLengkap = $adminOki->nama_lengkap;  // Pastikan model User memiliki atribut 'nama_lengkap'
+    
+            // Inisialisasi cURL untuk mengirimkan pesan
+            $curl = curl_init();
+    
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://api.fonnte.com/send',  // URL API Fonnte
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => array(
+                    'target' => $nomorHp,  // Menggunakan nomor HP AdminOki
+                    'message' => 'Hallo ' . $namaLengkap . ', umpan balik terbaru untuk kegiatan: ' . $kegiatan->nama_kegiatan . ' adalah: ' . $request->umpan_balik,  // Pesan dengan nama lengkap dan umpan balik
+                    'countryCode' => '62',  // Pastikan kode negara sesuai
+                ),
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: M8xs9bLniFSFLzZcU7nB'  // Token API Fonnte
+                ),
+            ));
+    
+            // Eksekusi cURL dan tangani respon
+            $response = curl_exec($curl);
+    
+            // Cek jika ada error dalam cURL
+            if (curl_errno($curl)) {
+                $error_msg = curl_error($curl);
+                // Jika ada error, tampilkan pesan error
+                return response()->json(['error' => $error_msg], 500);
+            }
+    
+            curl_close($curl);
+    
+            // Redirect ke halaman index setelah update
+            return redirect()->route('super-admin.manajemen_kegiatan.index')->with('success', 'Pesan berhasil dikirim!');
+        } else {
+            // Jika tidak ada pengguna AdminOki yang terkait, tampilkan error
+            return redirect()->route('super-admin.manajemen_kegiatan.index')->with('error', 'AdminOki terkait tidak ditemukan!');
+        }
     }
     
+
     public function tolak($id)
     {
+        // Pastikan hanya SuperAdmin yang dapat mengakses fungsi ini
         $this->authorizeAccess('SuperAdmin');
         
+        // Mengambil data kegiatan berdasarkan ID
         $kegiatan = Manajemen::findOrFail($id);
+        
+        // Update status proposal menjadi 'ditolak'
         $kegiatan->update(['status_proposal' => 'ditolak']);
-        return redirect()->route('super-admin.manajemen_kegiatan.index');
+        
+        // Mendapatkan data AdminOki yang terkait dengan DataOki dari kegiatan ini
+        // Mengambil AdminOki berdasarkan relasi
+        $adminOki = $kegiatan->dataOki->users()->where('role', 'AdminOki')->first();
+    
+        // Pastikan ada AdminOki yang terkait
+        if ($adminOki) {
+            // Ambil nomor HP dan nama lengkap dari AdminOki
+            $nomorHp = $adminOki->no_hp;
+            $namaLengkap = $adminOki->nama_lengkap;
+    
+            // Inisialisasi cURL untuk mengirimkan pesan
+            $curl = curl_init();
+    
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://api.fonnte.com/send',  // URL API Fonnte
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => array(
+                    'target' => $nomorHp,  // Nomor HP AdminOki
+                    'message' => 'Hallo ' . $namaLengkap . ', proposal kegiatan "' . $kegiatan->nama_kegiatan . '" telah ditolak. Mohon periksa kembali.',  // Pesan tentang status ditolak
+                    'countryCode' => '62',
+                ),
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: M8xs9bLniFSFLzZcU7nB'  // Token API Fonnte
+                ),
+            ));
+    
+            // Eksekusi cURL dan tangani respon
+            $response = curl_exec($curl);
+    
+            // Cek jika ada error dalam cURL
+            if (curl_errno($curl)) {
+                $error_msg = curl_error($curl);
+                // Jika ada error, tampilkan pesan error
+                return response()->json(['error' => $error_msg], 500);
+            }
+    
+            curl_close($curl);
+        }
+    
+        // Redirect ke halaman index setelah update
+        return redirect()->route('super-admin.manajemen_kegiatan.index')->with('success', 'Status proposal telah ditolak dan pesan telah dikirim!');
     }
-
+    
 
     public function setujui($id)
-    {
-        $this->authorizeAccess('SuperAdmin');
-        
-        $kegiatan = Manajemen::findOrFail($id);
-        $kegiatan->update(['status_proposal' => 'disetujui']);
-        return redirect()->route('super-admin.manajemen_kegiatan.index');
+{
+    // Pastikan hanya SuperAdmin yang dapat mengakses fungsi ini
+    $this->authorizeAccess('SuperAdmin');
+    
+    // Mengambil data kegiatan berdasarkan ID
+    $kegiatan = Manajemen::findOrFail($id);
+    
+    // Update status proposal menjadi 'disetujui'
+    $kegiatan->update(['status_proposal' => 'disetujui']);
+    
+    // Mendapatkan data AdminOki yang terkait dengan DataOki dari kegiatan ini
+    // Mengambil AdminOki berdasarkan relasi
+    $adminOki = $kegiatan->dataOki->users()->where('role', 'AdminOki')->first();
+
+    // Pastikan ada AdminOki yang terkait
+    if ($adminOki) {
+        // Ambil nomor HP dan nama lengkap dari AdminOki
+        $nomorHp = $adminOki->no_hp;
+        $namaLengkap = $adminOki->nama_lengkap;
+
+        // Inisialisasi cURL untuk mengirimkan pesan
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.fonnte.com/send',  // URL API Fonnte
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array(
+                'target' => $nomorHp,  // Nomor HP AdminOki
+                'message' => 'Hallo ' . $namaLengkap . ', proposal kegiatan "' . $kegiatan->nama_kegiatan . '" telah disetujui. Terima kasih atas kontribusinya.',  // Pesan tentang status disetujui
+                'countryCode' => '62',
+            ),
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: M8xs9bLniFSFLzZcU7nB'  // Token API Fonnte
+            ),
+        ));
+
+        // Eksekusi cURL dan tangani respon
+        $response = curl_exec($curl);
+
+        // Cek jika ada error dalam cURL
+        if (curl_errno($curl)) {
+            $error_msg = curl_error($curl);
+            // Jika ada error, tampilkan pesan error
+            return response()->json(['error' => $error_msg], 500);
+        }
+
+        curl_close($curl);
     }
+
+    // Redirect ke halaman index setelah update
+    return redirect()->route('super-admin.manajemen_kegiatan.index')->with('success', 'Status proposal telah disetujui dan pesan telah dikirim!');
+}
+
 }

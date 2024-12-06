@@ -18,77 +18,73 @@
         </p>
 
         <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Data Home</h4>
-                        <a href="{{ route('super-admin.home.create') }}" class="btn btn-primary ml-auto">
-                            <i class="fas fa-plus"></i> Tambah Data
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped" id="table-1">
-                                <thead>
-                                    <tr class="text-center">
-                                        <th>No</th>
-                                        <th>Judul</th>
-                                        <th>Deskripsi</th>
-                                        <th>File</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($homes as $home)
-                                        <tr class="text-center">
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $home->judul }}</td>
-                                            <td>{{ $home->deskripsi }}</td>
-                                            <td>
-                                                @if($home->file)
-                                                    <a href="{{ asset('uploads/' . $home->file) }}" target="_blank">
-                                                        @if(in_array(pathinfo($home->file, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
-                                                            <img src="{{ asset('uploads/' . $home->file) }}" alt="Image" style="width: 100px; height: auto;">
-                                                        @elseif(pathinfo($home->file, PATHINFO_EXTENSION) == 'pdf')
-                                                            <i class="fas fa-file-pdf fa-2x"></i>
-                                                        @else
-                                                            <i class="fas fa-file fa-2x"></i>
-                                                        @endif
-                                                    </a>
-                                                    <br>
-                                                    <a href="{{ asset('uploads/' . $home->file) }}" download class="btn btn-success btn-sm mt-2">
-                                                        <i class="fas fa-download"></i> Download
-                                                    </a>
-                                                @else
-                                                    Tidak ada file
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('super-admin.home.edit', $home->id) }}" class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-edit"></i> Edit
-                                                </a>
-                                                <form action="{{ route('super-admin.home.destroy', $home->id) }}" method="POST" id="deleteForm{{ $home->id }}" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-danger btn-sm deleteButton" data-id="{{ $home->id }}">
-                                                        <i class="fas fa-trash"></i> Hapus
-                                                    </button>
-                                                </form>                                                
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="5" class="text-center">Tidak ada data yang tersedia</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h4>Data Home</h4>
+                <a href="{{ route('super-admin.home.create') }}" class="btn btn-primary ml-auto">
+                    <i class="fas fa-plus"></i> Tambah Data
+                </a>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped" id="table-1">
+                    <thead>                                 
+                      <tr>
+                        <th class="text-center">
+                          No
+                        </th>
+                        <th class="text-center">Judul</th>
+                        <th class="text-center">Deskripsi</th>
+                        <th class="text-center">Kategori</th>
+                        <th class="text-center">Gambar</th>
+                        <th class="text-center">Link</th>
+                        <th class="text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($homes as $index => $home)
+                          <tr>
+                            <td class="text-center">{{ $index + 1 }}</td>
+                            <td class="text-center">{{ $home->judul }}</td>
+                            <td class="text-center">{{ $home->deskripsi ?? 'Tidak ada deskripsi' }}</td>
+                            <td class="text-center">{{ $home->kategori->nama ?? 'Tidak ada kategori' }}</td>
+                            <td class="text-center">
+                              @if($home->gambar)
+                                <img src="{{ asset('uploads/' . $home->gambar) }}" alt="Gambar {{ $home->judul }}" width="50">
+                              @else
+                                <span>Tidak ada gambar</span>
+                              @endif
+                            </td>
+                            <td class="text-center">
+                              @if($home->link_template)
+                                <a href="{{ $home->link_template }}" target="_blank">Lihat Link</a>
+                              @else
+                                <span>Tidak ada link</span>
+                              @endif
+                            </td>
+                            <td class="text-center">
+                              <a href="{{ route('super-admin.home.edit', $home->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                              <form action="{{ route('super-admin.home.destroy', $home->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</button>
+                              </form>
+                            </td>
+                          </tr>
+                        @endforeach
+                      </tbody>                      
+                  </table>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-</section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-@endsection
+
+    @endsection

@@ -13,7 +13,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('nim', 50)->nullable()->unique()->after('nama_lengkap'); // Mengizinkan NULL untuk unique
+            $table->string('nim', 50)->nullable()->unique()->after('nama_lengkap'); 
             $table->unsignedBigInteger('id_oki')->nullable()->after('nim');
             $table->unsignedBigInteger('id_divisi')->nullable()->after('id_oki');
             $table->string('no_hp', 20)->nullable()->after('id_divisi');

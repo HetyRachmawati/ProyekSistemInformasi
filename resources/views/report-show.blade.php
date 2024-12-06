@@ -95,8 +95,13 @@
 
                         <!-- Tombol Kembali -->
                         <div class="form-group">
-                            <a href="{{ route('report') }}" class="btn btn-secondary">Kembali</a>
+                            <a href="{{ route('dashboard') }}" class="btn btn-primary">Kembali ke Dashboard</a>
+                        
+                            @if(auth()->user()->role === 'User')                                
+                            <a href="{{ route('report') }}" class="btn btn-secondary">Kembali ke Manajemen Laporan</a>
+                            @endif
                         </div>
+                        
                     </div>
                 </div>
             </div>

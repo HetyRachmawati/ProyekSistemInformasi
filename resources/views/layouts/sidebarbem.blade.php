@@ -14,7 +14,9 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('super-admin.dashboard') }}" style="color: white; font-weight: normal;">Dashboard</a></li>
-                    <li><a class="nav-link" href="{{ route('super-admin.home.index') }}" style="color: white; font-weight: normal;">Home</a></li>
+                    <li><a class="nav-link" href="{{ route('super-admin.home.index') }}" style="color: white; font-weight: normal;">Template</a></li>
+                    <li><a class="nav-link" href="{{ route('super-admin.kategori.index') }}" style="color: white; font-weight: normal;">Kategori Template</a></li>
+
                 </ul>
             </li>
             <li class="menu-header" style="color: white; font-weight: normal;">Data Anggota</li>
@@ -45,13 +47,14 @@
                     <i class="far fa-user"></i> <span>Divisi</span>
                 </a>
                 <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('super-admin.jurusan.index') }}" style="color: white; font-weight: normal;">Data Jurusan</a></li>
+                    <li><a class="nav-link" href="{{ route('super-admin.periode.index') }}" style="color: white; font-weight: normal;">Data Periode</a></li>
                     <li><a class="nav-link" href="{{ route('super-admin.data_divisi.index') }}" style="color: white; font-weight: normal;">Data Divisi</a></li>
                     <li><a class="nav-link" href="{{ route('super-admin.data_oki.index') }}" style="color: white; font-weight: normal;">Data Oki</a></li>
                 </ul>
             </li>
         </ul>
         <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-            <!-- Tambahan lainnya -->
         </div>
     </aside>
 </div>

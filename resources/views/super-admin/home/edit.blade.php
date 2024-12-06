@@ -25,7 +25,7 @@
                         <h4>Form Edit Data</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('super-admin.home.update', $home->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
+                        <form action="{{ route('super-admin.home.update', $home->id) }}" method="POST" enctype="multipart/form-data" onsubmit="confirmEdit(event)">
                             @csrf
                             @method('PUT')
                             <div class="form-group">
@@ -43,22 +43,39 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="file">File</label>
-                                <input type="file" name="file" id="file" class="form-control @error('file') is-invalid @enderror">
-                                @if($home->file)
+                                <label for="id_kategori">Kategori</label>
+                                <select name="id_kategori" id="id_kategori" class="form-control" required>
+                                    <option value="">Pilih Kategori</option>
+                                    @foreach($categories as $kategori)
+                                        <option value="{{ $kategori->id }}" {{ isset($home) && $home->id_kategori == $kategori->id ? 'selected' : '' }}>
+                                            {{ $kategori->nama_kategori }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="gambar">Gambar</label>
+                                <input type="file" name="gambar" id="gambar" class="form-control @error('gambar') is-invalid @enderror">
+                                @if($home->gambar)
                                     <div class="mt-2">
-                                        <a href="{{ asset('uploads/' . $home->file) }}" target="_blank">
-                                            Lihat File: {{ $home->file }}
+                                        <a href="{{ asset('uploads/' . $home->gambar) }}" target="_blank">
+                                            Lihat Gambar: {{ $home->gambar }}
                                         </a>
                                     </div>
                                 @endif
-                                @error('file')
+                                @error('gambar')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <button type="button" id="editButton" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Simpan Perubahan
-                            </button>
+                            <div class="form-group">
+                                <label for="link">Link</label>
+                                <input type="url" name="link_template" id="link" class="form-control @error('link_template') is-invalid @enderror" value="{{ old('link_template', $home->link_template) }}" required>
+                                @error('link_template')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Update</button>
                             <a href="{{ route('super-admin.home.index') }}" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left"></i> Kembali
                             </a>

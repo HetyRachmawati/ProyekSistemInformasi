@@ -23,12 +23,13 @@ class User extends Authenticatable
         'role',
         'no_hp',
         'jabatan',
-        'periode',
-        'jurusan',
+        'id_periode',
+        'id_jurusan',
         'status_keaktifan',
         'id_oki',
         'id_divisi',
     ];
+    
 
     /**
      * The attributes that should be hidden for serialization.
@@ -64,5 +65,17 @@ class User extends Authenticatable
     public function dataDivisi()
     {
         return $this->belongsTo(DataDivisi::class, 'id_divisi');
+    }
+
+   
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class, 'id_periode');
+    }
+
+   
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class, 'id_jurusan');
     }
 }

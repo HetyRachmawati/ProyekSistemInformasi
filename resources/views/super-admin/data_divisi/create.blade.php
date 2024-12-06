@@ -7,8 +7,8 @@
   <div class="section-header">
     <h1>Tambah Data Divisi</h1>
     <div class="section-header-breadcrumb">
-      <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-      <div class="breadcrumb-item"><a href="#">Modules</a></div>
+      <div class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboard</a></div>
+      <div class="breadcrumb-item"><a href="{{ route('super-admin.data_divisi.index') }}">Data Divisi</a></div>
       <div class="breadcrumb-item">Tambah Data Divisi</div>
     </div>
   </div>

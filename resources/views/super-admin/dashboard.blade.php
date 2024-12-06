@@ -8,6 +8,7 @@
     @include('layouts.dashboard') 
 </div>
 
+
 <div class="row">
     @include('layouts.sidebarbem') 
 </div>

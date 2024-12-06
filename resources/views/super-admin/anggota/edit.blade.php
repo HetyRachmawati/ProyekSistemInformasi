@@ -51,6 +51,51 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" name="email" class="form-control" value="{{ old('email', $anggota->email) }}" required>
+                                        @error('email')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" name="password" class="form-control">
+                                        <small>Isi jika ingin mengubah password</small>
+                                        @error('password')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>No HP</label>
+                                        <input type="text" name="no_hp" class="form-control" value="{{ old('no_hp', $anggota->no_hp) }}" required>
+                                        @error('no_hp')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                 
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Jabatan</label>
+                                        <input type="text" name="jabatan" class="form-control" value="{{ old('jabatan', $anggota->jabatan) }}"/>
+                                        @error('jabatan')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label>Organisasi (OKI)</label>
                                         <select name="id_oki" class="form-control">
                                             <option value="" disabled>Pilih OKI</option>
@@ -82,67 +127,41 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Email</label>
-                                        <input type="email" name="email" class="form-control" value="{{ old('email', $anggota->email) }}" required>
-                                        @error('email')
+                                        <label>Jurusan</label>
+                                        <select name="id_jurusan" class="form-control" required>
+                                            <option value="" disabled selected>Pilih Jurusan</option>
+                                            @foreach($jurusans as $item)
+                                                <option value="{{ $item->id }}"
+                                                    {{ old('id_jurusan', $anggota->id_oki) == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->nama_jurusan }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_jurusan')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Password</label>
-                                        <input type="password" name="password" class="form-control">
-                                        <small>Isi jika ingin mengubah password</small>
-                                        @error('password')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>No HP</label>
-                                        <input type="text" name="no_hp" class="form-control" value="{{ old('no_hp', $anggota->no_hp) }}" required>
-                                        @error('no_hp')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Jabatan</label>
-                                        <input type="text" name="jabatan" class="form-control" value="{{ old('jabatan', $anggota->jabatan) }}"/>
-                                        @error('jabatan')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
+                            
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Periode</label>
-                                        <input type="text" name="periode" class="form-control" value="{{ old('periode', $anggota->periode) }}"/>
-                                        @error('periode')
+                                        <select name="id_periode" class="form-control" required>
+                                            <option value="" disabled selected>Pilih Periode</option>
+                                            @foreach($periodes as $item)
+                                                <option value="{{ $item->id }}" 
+                                                    {{ old('id_periode', $anggota->id_periode) == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->tahun_periode }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_periode')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Jurusan</label>
-                                        <input type="text" name="jurusan" class="form-control" value="{{ old('jurusan', $anggota->jurusan) }}"/>
-                                        @error('jurusan')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
+                            </div>                            
+                            
 
                             <div class="form-group">
                                 <label>Status Keaktifan</label>

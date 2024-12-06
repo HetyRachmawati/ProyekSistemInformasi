@@ -1,10 +1,14 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataOkiController;
 use App\Http\Controllers\DataDivisiController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\UserReportController;
 use App\Http\Controllers\ManajemenKegiatanController;
 use App\Http\Controllers\ProfileController;
@@ -12,9 +16,23 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckRole;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
+Route::get('/register', function () {
+    return view('auth.register');
+});
+
+
+//Course
+Route::middleware('auth')->get('/course', function () {
+    return view('layouts.course');  
+})->name('course');
+
+// Annuncements
+Route::middleware('auth')->get('/announcements', function () {
+    return view('layouts.announcements');  
+})->name('announcements');
 
 // Edit Profile
 Route::middleware('auth')->group(function () {
@@ -23,11 +41,18 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// ANGGOTA
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// routes/web.php
+Route::middleware('auth')->group(function () {
+    Route::get('/super-admin/home', [HomeController::class, 'index'])->name('super-admin.home.index');
+});
 
+Route::get('/course', [HomeController::class, 'course'])->name('course')->middleware('auth');
+
+
+// ANGGOTA
+Route::get('/dashboard', [DashboardController::class, 'dashboardOverview'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 
 Route::middleware(['auth', CheckRole::class . ':User'])->group(function () {
@@ -37,27 +62,22 @@ Route::middleware(['auth', CheckRole::class . ':User'])->group(function () {
     });
 });
 
+Route::get('/{id}', [UserReportController::class, 'show'])->name('report-show')->middleware('auth');
+
+
 // MemberList
-Route::middleware(['auth'])->group(function () {
+Route::prefix('user')->middleware(['auth'])->group(function () {
     Route::get('/memberlist', [AnggotaController::class, 'showMemberList'])->name('memberlist');
 });
-
-//Report Index
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [ReportController::class, 'showReport'])->name('dashboard.show');
-});
-
-
 
 
 // SUPER ADMIN
 Route::middleware(['auth', CheckRole::class . ':SuperAdmin'])->group(function () {
     
     // Dashboard 
-    Route::get('/super-admin/dashboard', function () {
-        return view('super-admin.dashboard');
-    })->name('super-admin.dashboard');
+    Route::get('/super-admin/dashboard', [DashboardController::class, 'dashboardOverview'])
+    ->middleware(['auth', 'verified'])
+    ->name('super-admin.dashboard');
     
     // Data Oki 
     Route::prefix('super-admin/dataoki')->group(function () {
@@ -116,6 +136,37 @@ Route::middleware(['auth', CheckRole::class . ':SuperAdmin'])->group(function ()
         Route::delete('/{home}', [HomeController::class, 'destroy'])->name('super-admin.home.destroy');
     });
     
+
+    // Kategori
+    Route::prefix('super-admin/kategori')->name('super-admin.kategori.')->middleware('auth')->group(function() {
+        Route::get('/', [KategoriController::class, 'index'])->name('index'); // Menampilkan semua kategori
+        Route::get('/create', [KategoriController::class, 'create'])->name('create'); // Menampilkan form create
+        Route::post('/', [KategoriController::class, 'store'])->name('store'); // Menyimpan kategori baru
+        Route::get('/{kategori}/edit', [KategoriController::class, 'edit'])->name('edit'); // Menampilkan form edit
+        Route::put('/{kategori}', [KategoriController::class, 'update'])->name('update'); // Memperbarui kategori
+        Route::delete('/{kategori}', [KategoriController::class, 'destroy'])->name('destroy'); // Menghapus kategori
+    });
+
+    // Tahun
+    Route::prefix('super-admin')->name('super-admin.')->group(function () {
+        Route::get('periode', [PeriodeController::class, 'index'])->name('periode.index');
+        Route::get('periode/create', [PeriodeController::class, 'create'])->name('periode.create');
+        Route::post('periode', [PeriodeController::class, 'store'])->name('periode.store');
+        Route::get('periode/{periode}/edit', [PeriodeController::class, 'edit'])->name('periode.edit');
+        Route::put('periode/{periode}', [PeriodeController::class, 'update'])->name('periode.update');
+        Route::delete('periode/{periode}', [PeriodeController::class, 'destroy'])->name('periode.destroy');
+    });
+
+    // Jurusan
+    Route::prefix('super-admin')->name('super-admin.')->group(function () {
+        Route::get('jurusan', [JurusanController::class, 'index'])->name('jurusan.index');
+        Route::get('jurusan/create', [JurusanController::class, 'create'])->name('jurusan.create');
+        Route::post('jurusan', [JurusanController::class, 'store'])->name('jurusan.store');
+        Route::get('jurusan/{jurusan}/edit', [JurusanController::class, 'edit'])->name('jurusan.edit');
+        Route::put('jurusan/{jurusan}', [JurusanController::class, 'update'])->name('jurusan.update');
+        Route::delete('jurusan/{jurusan}', [JurusanController::class, 'destroy'])->name('jurusan.destroy');
+    });
+    
     
 });
 
@@ -124,9 +175,9 @@ Route::middleware(['auth', CheckRole::class . ':SuperAdmin'])->group(function ()
 Route::middleware(['auth', CheckRole::class . ':AdminOki'])->group(function () {
     
     // Dashboard 
-    Route::get('/admin-oki/dashboard', function () {
-        return view('admin-oki.dashboard');
-    })->name('admin-oki.dashboard');
+    Route::get('/admin-oki/dashboard', [DashboardController::class, 'dashboardOverview'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin-oki.dashboard');
     
     // Data Oki
     Route::prefix('admin-oki/dataoki')->group(function () {

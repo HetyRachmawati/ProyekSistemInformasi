@@ -38,9 +38,9 @@
                 <select name="id_oki" class="form-control" required>
                   <option value="" disabled selected>Pilih OKI</option>
                   @foreach($dataOki as $oki)
-                    <option value="{{ $oki->id }}">{{ $oki->nama_oki }}</option>
+                      <option value="{{ $oki->id }}">{{ $oki->nama_oki }}</option>
                   @endforeach
-                </select>
+              </select>              
               </div>
             
               <div class="form-group">

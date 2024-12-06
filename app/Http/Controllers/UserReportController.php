@@ -9,15 +9,13 @@ class UserReportController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        // Mengambil semua laporan tanpa login
+        $reports = Report::with(['manajemen', 'dataOki'])->paginate(10);
     
-        if ($user->role === 'User') {
-            $reports = Report::with(['manajemen', 'dataOki'])->paginate(10); 
-            return view('report', compact('reports')); 
-        }
-    
-        abort(403, 'Anda tidak memiliki akses ke halaman ini.');
+        // Mengirim data ke view
+        return view('report', compact('reports'));
     }
+    
     public function show($id)
     {
         $user = Auth::user();
